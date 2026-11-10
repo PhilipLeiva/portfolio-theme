@@ -12,7 +12,9 @@
 ## Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-src
 ## Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 ## Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-$content_security_settings = array(
+// Built on demand: __() must not run before WordPress loads translations (init).
+function get_content_security_settings() {
+  return array(
   array(
     'name' => 'default_src_textbox',
     'label' => 'Default Source',
@@ -61,10 +63,10 @@ $content_security_settings = array(
   //   'type' => 'checkbox',
   //   'description' => __('Allow use of HTML inline sources.', 'portfoliotheme' ),
   // ),
-);
+  );
+}
 function customize_content_security( $wp_customize ) {
-  global $content_security_settings;
-  $settings = $content_security_settings;
+  $settings = get_content_security_settings();
   $section['name'] = 'content_security_section';
   $wp_customize->add_section(
       $section['name'],
@@ -97,8 +99,7 @@ function customize_content_security( $wp_customize ) {
 add_action( 'customize_register', 'customize_content_security' );
 
 function content_security_header( ) {
-  global $content_security_settings;
-  $settings = $content_security_settings;
+  $settings = get_content_security_settings();
   $header = '<meta http-equiv="Content-Security-Policy" content="';
   $header_content = '';
   foreach ($settings as $setting) {
