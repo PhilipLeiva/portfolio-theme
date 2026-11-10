@@ -10,7 +10,7 @@
 
 // Enables the ability to get the category ID from a link for AJAX requests.
 function custom_the_category($separator = '', $parents='', $postId = false) {
-	$categories = get_the_category($postId); $i = 0;
+	$categories = get_the_category($postId); $i = 0; $thelist = '';
 	if (!empty($categories)) {
 		foreach($categories as $cat) {
 			if ( $i > 0 ) {
