@@ -53,6 +53,10 @@ function add_post_type_work_title( $input ) {
 	return $input;
 }
 
+// Built on init: __() must not run before WordPress loads translations.
+add_action('init', 'build_work_meta_groups', 1);
+function build_work_meta_groups() {
+	global $roleGroups, $disciplineGroups, $toolGroups, $productGroups, $presentationGroups, $shortcutGroups;
 $roleGroups = array(
 	array(										# entertainment and sports
 		'creativeProducer'			=> __('Creative Producer', 'portfoliotheme'),
@@ -433,6 +437,7 @@ $shortcutGroups = array(
 		'sound'						=> __('Sound', 'portfoliotheme'),
 	)
 );
+}
 
 /**
  *
